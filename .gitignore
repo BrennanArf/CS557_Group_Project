@@ -1,62 +1,23 @@
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/dataSources.local.xml
-.idea/sqlDataSources.xml
-.idea/dynamic.xml
+# Virtual environment
+.venv/
+venv/
 
-pycache/
-*.py[cod]
-*.egg
-*.egg-info/
-dist/
-build/
-.eggs/
-
-
-*.log
-*.pot
+# Python cache
+__pycache__/
 *.pyc
-CampusEventManagementSystem/db.sqlite3
-instance/
-media/
+*.pyo
 
-/staticfiles/
-/static/
+# Django
+*.log
+local_settings.py
+db.sqlite3
 
+# Environment variables
 .env
-.env
-.env.
-/venv/
-/ENV/
-/env/
-/.venv/
 
-.vscode/
+# PyCharm
 .idea/
-*.swp
-*.swo
 
-pycache/
-*.py[cod]
-*$py.class
-
-Pipenv, Poetry
-Pipfile.lock
-poetry.lock
-
-.mypy_cache/
-
-.cache/
-.coverage
-htmlcov/
-
+# OS
 .DS_Store
-
-*.pid
-docker-compose.override.yml
-
-coverage.xml
-
-node_modules/
-
-*.bak
+Thumbs.db

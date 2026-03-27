@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'CS557_Group_Project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'UWM_Track_Field_db',
+        'USER': 'root',
+        'PASSWORD': 'admin',
+        'HOST': 'localhost',
+        'PORT': '3306', # Default MySQL port
     }
 }
 
