@@ -5,6 +5,23 @@
     <title>Login</title>
 </head>
 <body>
-    Test Login Page
+
+<h1>Login Page</h1>
+    <form action="/" method="POST">
+        {% csrf_token %}
+        <label>Username</label>
+        <input type="text" name="username" required>
+        <label>Password</label>
+        <input type="password" name="password" required>
+        <button type="submit">Log In</button>
+    </form>
+
+    {% if messages %}
+        {% for message in messages %}
+             <div class="alert">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+
 </body>
 </html>
