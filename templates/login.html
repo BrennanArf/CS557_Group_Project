@@ -1,27 +1,49 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
 </head>
 <body>
+    <div class = "split-container">
+        <div class = "column left-column">
+            <div class="login-container form card">
+                <div class="login content">
+                    <h1>Welcome </h1>
+                </div>
 
-<h1>Login Page</h1>
-    <form action="/" method="POST">
-        {% csrf_token %}
-        <label>Username</label>
-        <input type="text" name="username" required>
-        <label>Password</label>
-        <input type="password" name="password" required>
-        <button type="submit">Log In</button>
-    </form>
+                <form action="/" method="POST">
+                    {% csrf_token %}
+                    <label for="username">Username</label><br>
+                    <input id="username" type="text" name="username" required><br>
 
-    {% if messages %}
-        {% for message in messages %}
-             <div class="alert">{{ message }}</div>
-        {% endfor %}
-    {% endif %}
+                    <label for="pwd">Password</label><br>
+                    <input id="pwd" type="password" name="password" required><br>
 
+                    <input type="submit" value="Log In">
+                </form>
+
+{#                <br>#}
+{#                <div class = "login-content">#}
+{#                    <p style = "color: #d9d9d9; font-size:20px;">Don't have an account? <a href="/signup/"><strong>Sign Up</strong></a></p>#}
+{#                </div> //for future reference#}
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+
+        <div class = "column right-column">
+            <div class="image-wrapper">
+                <img src="{% static 'images/uwmlogo.png' %}" alt="Login Image">
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>
