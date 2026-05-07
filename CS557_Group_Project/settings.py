@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'UWM_Track_and_Field_Performance_Management_System.apps.UwmTrackAndFieldPerformanceManagementSystemConfig',
 ]
 
+AUTH_USER_MODEL = 'UWM_Track_and_Field_Performance_Management_System.CustomUser'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
