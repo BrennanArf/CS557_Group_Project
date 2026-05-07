@@ -8,6 +8,7 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         with open('./data/athletesCLEAN.csv', newline='') as f:
             reader = csv.reader(f, delimiter=',')
+            reader.__next__() # skip title row
             for row in reader:
                 new_athlete = Athlete(
                     first_name=row[1],
