@@ -1,6 +1,8 @@
 from django.db import models
 
 # Create your models here.
+from django.contrib.auth.models import AbstractUser
+from django.db import models
 class Athlete(models.Model):
     athlete_id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=45, null=True)
@@ -44,3 +46,6 @@ class PracticeResult(models.Model):
     mark_raw = models.DecimalField(max_digits=6, decimal_places=2, null=True)
     season = models.CharField(max_length=10, null=True)
 
+
+class CustomUser(AbstractUser):
+    role = models.CharField(max_length=50)
