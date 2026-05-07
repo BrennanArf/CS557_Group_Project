@@ -41,6 +41,8 @@ INSTALLED_APPS = [
 ]
 
 AUTH_USER_MODEL = 'UWM_Track_and_Field_Performance_Management_System.CustomUser'
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

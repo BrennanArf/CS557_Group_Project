@@ -24,7 +24,6 @@ from UWM_Track_and_Field_Performance_Management_System.views import HomeView, Si
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
-    path('signup/', SignUpView.as_view(), name='signup'),
     path('home/', HomeView.as_view(), name='home'),
-
+    path('signup/', SignUpView.as_view(), name='signup'),
 ]
