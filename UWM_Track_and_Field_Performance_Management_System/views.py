@@ -25,3 +25,9 @@ class LoginView(View):
         else:
             messages.error(request, "Invalid username or password.")
             return redirect('login')
+
+
+class SignUpView(View):
+    def get(self, request):
+        return render(request, 'signup.html')
+
