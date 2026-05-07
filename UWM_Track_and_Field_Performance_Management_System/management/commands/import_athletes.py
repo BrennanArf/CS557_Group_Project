@@ -1,0 +1,21 @@
+from django.core.management.base import BaseCommand
+from UWM_Track_and_Field_Performance_Management_System.models import Athlete
+import csv
+
+class Command(BaseCommand):
+    help = 'Import athletes from CSV'
+
+    def handle(self, *args, **kwargs):
+        with open('./data/athletesCLEAN.csv', newline='') as f:
+            reader = csv.reader(f, delimiter=',')
+            for row in reader:
+                new_athlete = Athlete(
+                    first_name=row[1],
+                    last_name=row[2],
+                    gender=row[3],
+                    event_group=row[4],
+                    tfrrs_url=row[5]
+                )
+                new_athlete.save()
+        self.stdout.write(self.style.SUCCESS('Import complete'))
+        
