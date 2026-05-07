@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Fall Testing Results</h2>
+    <table>
+        <tr>
+            <th>Athlete</th>
+            <th>Season</th>
+            <th>Vertical</th>
+            <th>Sprint 50</th>
+        </tr>
+        {% for test in fall_testing %}
+        <tr>
+            <td>{{ test.athlete.last_name }}</td>
+            <td>{{ test.season }}</td>
+            <td>{{ test.vertical }}</td>
+            <td>{{ test.sprint_50 }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

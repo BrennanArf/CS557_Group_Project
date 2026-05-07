@@ -6,9 +6,20 @@
 </head>
 <body>
     <h1>Home page</h1>
+
+
+
+
+    <p style = "color: #d9d9d9; font-size:20px;">H<a href="athletes/"><strong>athletes</strong></a></p>
+    <p style = "color: #d9d9d9; font-size:20px;">H <a href="competition_results/"><strong>competition</strong></a></p>
+    <p style = "color: #d9d9d9; font-size:20px;">H <a href="fall_testing/"><strong>fall testing</strong></a></p>
+    <p style = "color: #d9d9d9; font-size:20px;">H <a href="practice/"><strong>practice</strong></a></p>
+
+
     <form action="{% url 'logout' %}" method="post">
     {% csrf_token %}
     <button type="submit">Logout</button>
-</form>
+    </form>
+
 </body>
 </html>

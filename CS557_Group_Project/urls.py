@@ -17,7 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.contrib.auth import views as auth_views
-from UWM_Track_and_Field_Performance_Management_System.views import HomeView, SignUpView, LogoutView
+from UWM_Track_and_Field_Performance_Management_System.views import HomeView, SignUpView, LogoutView, AthleteView, \
+    CompetitionResultsView, FallTestingView, PracticeResultView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,4 +26,8 @@ urlpatterns = [
     path('home/', HomeView.as_view(), name='home'),
     path('signup/', SignUpView.as_view(), name='signup'),
     path('logout/', LogoutView, name='logout'),
+    path('home/athletes/', AthleteView.as_view(), name='athletes'),
+    path('home/competition_results/', CompetitionResultsView.as_view(), name='comp_results'),
+    path('home/fall_testing/', FallTestingView.as_view(), name='fall_testing'),
+    path('home/practice/', PracticeResultView.as_view(), name='practice'),
 ]

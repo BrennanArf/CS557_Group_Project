@@ -4,12 +4,38 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views import View
 
+from UWM_Track_and_Field_Performance_Management_System.models import Athlete, CompetitionResult, FallTesting, \
+    PracticeResult
 
 
 # Create your views here.
 class HomeView(LoginRequiredMixin,View):
     def get(self, request):
         return render(request, 'home.html')
+
+class AthleteView(LoginRequiredMixin,View):
+    def get(self, request):
+        athletes = Athlete.objects.all()
+        context = {'athletes': athletes}
+        return render(request, 'athletes.html', context)
+
+class CompetitionResultsView(LoginRequiredMixin, View):
+    def get(self, request):
+        comp_results = CompetitionResult.objects.all()
+        context = {'comp_results': comp_results}
+        return render(request, 'competition_results.html', context)
+
+class FallTestingView(LoginRequiredMixin, View):
+    def get(self, request):
+        fall_testing = FallTesting.objects.all()
+        context = {'fall_testing': fall_testing}
+        return render(request, 'fall_testing.html', context)
+
+class PracticeResultView(LoginRequiredMixin, View):
+    def get(self, request):
+        practice_results = PracticeResult.objects.all()
+        context = {'practice_results': practice_results}
+        return render(request, 'practice.html', context)
 
 
 class LoginView(View):
