@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, get_user_model
+from django.contrib.auth import authenticate, login, get_user_model, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views import View
@@ -56,3 +56,10 @@ class SignUpView(View):
 
         messages.success(request, 'Account created successfully. You can now log in.')
         return redirect('login')
+
+def LogoutView(request):
+        if request.method == 'POST':
+            logout(request)
+            return redirect('login')
+
+
