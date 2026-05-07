@@ -1,30 +1,60 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Signup</title>
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
 </head>
 <body>
-<h1>Create an account</h1>
-        <form method="post">
-            {% csrf_token %}
-            <label for="id_username">Username</label>
-            <input type="text" name="username" id="id_username" required>
+    <div class="split-container">
+        <div class="column left-column">
+            <div class="login-container form card">
+                <div class="login-content">
+                    <h1>Create an Account!</h1>
+                </div>
 
-            <label for="id_email">Email</label>
-            <input type="email" name="email" id="id_email" required>
+                <form action="/" method="POST">
+                    {% csrf_token %}
+                    <label for="id_username">Username</label>
+                    <input type="text" name="username" id="id_username" required>
 
-            <label for="id_password">Password</label>
-            <input type="password" name="password" id="id_password" required>
+                    <label for="id_email">Email</label>
+                    <input type="email" name="email" id="id_email" required>
 
-            <label for="id_role">Please choose one: </label>
-            <select name="role" id = "id_role" required>
-                <option value="Student">Student</option>
-                <option value="Coach">Coach</option>
-            </select>
-            <button type ="submit">Create Account</button>
-        </form>
+                    <label for="id_password">Password</label>
+                    <input type="password" name="password" id="id_password" required>
 
-        <h6>Have an account already? <a href={% url 'login' %}>Go to login page</a></h6>
+                    <label for="id_role">Please choose one:</label>
+                    <select name="role" id="id_role" required>
+                        <option value="Student">Student</option>
+                        <option value="Coach">Coach</option>
+                    </select>
+                    <br>
+                    <br>
+                    <input type="submit" value="Create Account">
+                </form>
+
+                <br>
+                <div class = "login-content">
+                   <p style = "color: #d9d9d9; font-size:20px;">Have an account already? <a href="/"><strong>Sign in</strong></a></p>
+                </div>
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+                <br>
+            </div>
+        </div>
+
+ <div class = "column right-column">
+            <div class="image-wrapper">
+                <img src="{% static 'images/uwmlogo.png' %}" alt="Login Image">
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
