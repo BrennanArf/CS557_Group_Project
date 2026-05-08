@@ -1,11 +1,39 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fall Testing | UWM Track & Field</title>
+    <link rel="stylesheet" href="{% static 'css/data.css' %}">
 </head>
 <body>
-<h2>Fall Testing Results</h2>
+<h2>Fall Testing</h2>
+ <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="{% static 'images/uwmlogo.png' %}" alt="UWM Logo" class="nav-logo">
+                <h3>UWM Track and Field Management System</h3>
+            </div>
+            <nav class="nav-menu">
+                <a href="{% url 'home' %}" class="nav-item active">Dashboard Home</a>
+                <a href="{% url 'athletes' %}" class="nav-item">Athletes</a>
+                <a href="{% url 'comp_results' %}" class="nav-item">Competition Results</a>
+                <a href="{% url 'fall_testing' %}" class="nav-item">Fall Testing</a>
+                <a href="{% url 'practice' %}" class="nav-item">Practice Data</a>
+
+                {% if request.user.is_superuser %}
+                <a href="/admin/" class="nav-item admin-link">Admin Panel</a>
+                {% endif %}
+            </nav>
+
+            <div class="sidebar-footer">
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="logout-btn">Logout</button>
+                </form>
+            </div>
+        </aside>
     <table>
         <tr>
             <th>Athlete</th>

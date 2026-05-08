@@ -67,34 +67,6 @@ body {
     margin-top: 20px;
 }
 
-.main-content {
-    margin-left: 260px;
-    flex: 1;
-    padding: 40px;
-}
-
-.content-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-}
-
-.user-badge {
-    background: var(--uwm-gold);
-    padding: 5px 15px;
-    border-radius: 20px;
-    font-weight: bold;
-    color: black;
-}
-
-.welcome-card {
-    background: white;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    margin-bottom: 30px;
-}
 
 .sidebar-footer {
     padding: 20px;

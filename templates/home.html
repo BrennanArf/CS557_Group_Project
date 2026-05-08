@@ -37,7 +37,11 @@
         <main class="main-content">
             <header class="content-header">
                 <h1>Welcome, {{ request.user.username }}</h1>
-                <div class="user-badge"> {{ request.user.role }} View</div>
+                {% if request.user.is_superuser %}
+                    <div class="user-badge">Admin View</div>
+                {% else %}
+                    <div class="user-badge">{{ request.user.role }} View</div>
+                {% endif %}
             </header>
 
             <section class="welcome-card">
