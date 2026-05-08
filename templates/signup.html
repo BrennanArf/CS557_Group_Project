@@ -16,7 +16,19 @@
 
                 <form action="{% url 'signup' %}" method="POST">
                 {% csrf_token %}
+                
+                <label for="id_fname">First Name</label>
+                <input type="text" name="fname" id="id_fname" required>
 
+                <label for="id_lname">Last Name</label>
+                <input type="text" name="lname" id="id_lname" required>
+
+                <label for="id_gender">Please choose one:</label>
+                    <select name="gender" id="id_gender" required>
+                        <option value="M">Male</option>
+                        <option value="W">Female</option>
+                    </select>
+                
                 <label for="id_username">Username</label>
                 <input type="text" name="username" id="id_username" required>
 
@@ -28,7 +40,7 @@
 
                 <label for="id_role">Please choose one:</label>
                     <select name="role" id="id_role" required>
-                     <option value="Student">Student</option>
+                        <option value="Student">Student</option>
                         <option value="Coach">Coach</option>
                     </select>
                     <br>

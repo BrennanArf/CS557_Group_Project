@@ -65,6 +65,11 @@ class SignUpView(View):
         password = request.POST.get('password', '').strip()
         role = request.POST.get('role', '').strip()
 
+        if role == "Student":
+            first_name = request.POST.get('fname', '').strip()
+            last_name = request.POST.get('lname', '').strip()
+            gender = request.POST.get('gender', '').strip()
+
         if not username or not email or not password:
             messages.error(request, 'Username and password are required.')
             return redirect('signup')
@@ -77,7 +82,8 @@ class SignUpView(View):
             username=username,
             email=email,
             password=password,
-            role=role
+            role=role,
+            athlete=Athlete.objects.get_or_create(first_name=first_name, last_name=last_name, gender=gender)[0]
         )
 
         messages.success(request, 'Account created successfully. You can now log in.')

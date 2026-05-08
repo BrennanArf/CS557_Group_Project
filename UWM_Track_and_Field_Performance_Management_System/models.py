@@ -46,6 +46,6 @@ class PracticeResult(models.Model):
     mark_raw = models.DecimalField(max_digits=6, decimal_places=2, null=True)
     season = models.CharField(max_length=10, null=True)
 
-
 class CustomUser(AbstractUser):
     role = models.CharField(max_length=50)
+    athlete = models.ForeignKey(Athlete, on_delete=models.DO_NOTHING, null=True)
