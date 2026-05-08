@@ -17,9 +17,29 @@ class AthleteView(LoginRequiredMixin,View):
     def get(self, request):
         if request.user.role == "Student":
             athletes = Athlete.objects.filter(athlete_id=request.user.athlete_id)
+            context = {'athletes': athletes}
         else:
             athletes = Athlete.objects.all()
+            editing_id = request.GET.get('edit')
+            context = {'athletes': athletes, 'editing_id':int(editing_id) if editing_id else None}
+    
+        return render(request, 'athletes.html', context)
+    
+    def post(self, request):
+        athlete = Athlete.objects.get(athlete_id=request.POST.get('athlete_id', ''))
+
+        first_name, last_name = request.POST.get('name', '').split(' ')
+        athlete.first_name = first_name
+        athlete.last_name = last_name
+        athlete.gender = request.POST.get('gender', '')
+        athlete.event_group = request.POST.get('event_group', '')
+        athlete.save()
+
+        # Only get here through Coach view
+        athletes = Athlete.objects.all()
         context = {'athletes': athletes}
+
+        # This doesn't clean up URL... but functions appropriately
         return render(request, 'athletes.html', context)
 
 class CompetitionResultsView(LoginRequiredMixin, View):
@@ -77,11 +97,6 @@ class SignUpView(View):
         password = request.POST.get('password', '').strip()
         role = request.POST.get('role', '').strip()
 
-        if role == "Student":
-            first_name = request.POST.get('fname', '').strip()
-            last_name = request.POST.get('lname', '').strip()
-            gender = request.POST.get('gender', '').strip()
-
         if not username or not email or not password:
             messages.error(request, 'Username and password are required.')
             return redirect('signup')
@@ -90,13 +105,26 @@ class SignUpView(View):
             messages.error(request, 'Username already taken.')
             return redirect('signup')
 
-        user = User.objects.create_user(
-            username=username,
-            email=email,
-            password=password,
-            role=role,
-            athlete=Athlete.objects.get_or_create(first_name=first_name, last_name=last_name, gender=gender)[0]
-        )
+        if role == "Student":
+            first_name = request.POST.get('fname', '').strip()
+            last_name = request.POST.get('lname', '').strip()
+            gender = request.POST.get('gender', '').strip()
+
+            user = User.objects.create_user(
+                username=username,
+                email=email,
+                password=password,
+                role=role,
+                athlete=Athlete.objects.get_or_create(first_name=first_name, last_name=last_name, gender=gender)[0]
+            )
+        else:
+            user = User.objects.create_user(
+                username=username,
+                email=email,
+                password=password,
+                role=role,
+                athlete=None
+            )
 
         messages.success(request, 'Account created successfully. You can now log in.')
         return redirect('login')
