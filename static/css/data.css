@@ -11,6 +11,12 @@ body {
     background-color: var(--bg-grey);
 }
 
+.main-content {
+    margin-left: 260px;
+    flex: 1;
+    padding: 40px;
+}
+
 .dashboard-container {
     display: flex;
     min-height: 100vh;
@@ -66,7 +72,6 @@ body {
     font-weight: bold;
     margin-top: 20px;
 }
-
 
 .sidebar-footer {
     padding: 20px;

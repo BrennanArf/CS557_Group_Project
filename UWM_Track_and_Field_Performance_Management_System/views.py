@@ -15,25 +15,37 @@ class HomeView(LoginRequiredMixin,View):
 
 class AthleteView(LoginRequiredMixin,View):
     def get(self, request):
-        athletes = Athlete.objects.all()
+        if request.user.role == "Student":
+            athletes = Athlete.objects.filter(athlete_id=request.user.athlete_id)
+        else:
+            athletes = Athlete.objects.all()
         context = {'athletes': athletes}
         return render(request, 'athletes.html', context)
 
 class CompetitionResultsView(LoginRequiredMixin, View):
     def get(self, request):
-        comp_results = CompetitionResult.objects.all()
+        if request.user.role == "Student":
+            comp_results = CompetitionResult.objects.filter(athlete_id=request.user.athlete_id)
+        else:
+            comp_results = CompetitionResult.objects.all()
         context = {'comp_results': comp_results}
         return render(request, 'competition_results.html', context)
 
 class FallTestingView(LoginRequiredMixin, View):
     def get(self, request):
-        fall_testing = FallTesting.objects.all()
+        if request.user.role == "Student":
+            fall_testing = FallTesting.objects.filter(athlete_id=request.user.athlete_id)
+        else:
+            fall_testing = FallTesting.objects.all()   
         context = {'fall_testing': fall_testing}
         return render(request, 'fall_testing.html', context)
 
 class PracticeResultView(LoginRequiredMixin, View):
     def get(self, request):
-        practice_results = PracticeResult.objects.all()
+        if request.user.role == "Student":
+            practice_results = PracticeResult.objects.filter(athlete_id=request.user.athlete_id)
+        else:
+            practice_results = PracticeResult.objects.all()
         context = {'practice_results': practice_results}
         return render(request, 'practice.html', context)
 

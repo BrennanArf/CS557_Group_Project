@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="{% static 'css/data.css' %}">
 </head>
 <body>
-<h2>Competition Results</h2>
  <div class="dashboard-container">
         <aside class="sidebar">
             <div class="sidebar-header">
@@ -16,9 +15,9 @@
                 <h3>UWM Track and Field Management System</h3>
             </div>
             <nav class="nav-menu">
-                <a href="{% url 'home' %}" class="nav-item active">Dashboard Home</a>
+                <a href="{% url 'home' %}" class="nav-item">Dashboard Home</a>
                 <a href="{% url 'athletes' %}" class="nav-item">Athletes</a>
-                <a href="{% url 'comp_results' %}" class="nav-item">Competition Results</a>
+                <a href="{% url 'comp_results' %}" class="nav-item active">Competition Results</a>
                 <a href="{% url 'fall_testing' %}" class="nav-item">Fall Testing</a>
                 <a href="{% url 'practice' %}" class="nav-item">Practice Data</a>
 
@@ -34,31 +33,32 @@
                 </form>
             </div>
         </aside>
- 
- 
-    <table>
-        <tr>
-            <th>Athlete</th>
-            <th>Meet Name</th>
-            <th>Meet Date</th>
-            <th>Event</th>
-            <th>Result Distance</th>
-            <th>Result Time</th>
-            <th>Wind</th>
-        </tr>
-        {% for result in comp_results %}
-        <tr>
-            <td>{{ result.athlete.first_name }} {{ result.athlete.last_name }}</td>
-            <td>{{ result.meet_name }}</td>
-            <td>{{ result.meet_date }}</td>
-            <td>{{ result.event }}</td>
-            <td>{{ result.result_distance|default:"-" }}</td>
-            <td>{{ result.result_time|default:"-" }}</td>
-            <td>{{ result.wind|default:"-" }}</td>
-        </tr>
-        {% empty %}
-        <tr><td colspan="4">Comp_results not found.</td></tr>
-        {% endfor %}
-    </table>
+    <main class="main-content">
+        <h2>Competition Results</h2>
+        <table class="data-table">
+            <tr>
+                <th>Athlete</th>
+                <th>Meet Name</th>
+                <th>Meet Date</th>
+                <th>Event</th>
+                <th>Result Distance</th>
+                <th>Result Time</th>
+                <th>Wind</th>
+            </tr>
+            {% for result in comp_results %}
+            <tr>
+                <td>{{ result.athlete.first_name }} {{ result.athlete.last_name }}</td>
+                <td>{{ result.meet_name }}</td>
+                <td>{{ result.meet_date }}</td>
+                <td>{{ result.event }}</td>
+                <td>{{ result.result_distance|default:"-" }}</td>
+                <td>{{ result.result_time|default:"-" }}</td>
+                <td>{{ result.wind|default:"-" }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4">Comp_results not found.</td></tr>
+            {% endfor %}
+        </table>
+    </main>
 </body>
 </html>

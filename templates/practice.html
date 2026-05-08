@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="{% static 'css/data.css' %}">
 </head>
 <body>
-<h2>Practice</h2>
  <div class="dashboard-container">
         <aside class="sidebar">
             <div class="sidebar-header">
@@ -16,11 +15,11 @@
                 <h3>UWM Track and Field Management System</h3>
             </div>
             <nav class="nav-menu">
-                <a href="{% url 'home' %}" class="nav-item active">Dashboard Home</a>
+                <a href="{% url 'home' %}" class="nav-item">Dashboard Home</a>
                 <a href="{% url 'athletes' %}" class="nav-item">Athletes</a>
                 <a href="{% url 'comp_results' %}" class="nav-item">Competition Results</a>
                 <a href="{% url 'fall_testing' %}" class="nav-item">Fall Testing</a>
-                <a href="{% url 'practice' %}" class="nav-item">Practice Data</a>
+                <a href="{% url 'practice' %}" class="nav-item active">Practice Data</a>
 
                 {% if request.user.is_superuser %}
                 <a href="/admin/" class="nav-item admin-link">Admin Panel</a>
@@ -34,29 +33,33 @@
                 </form>
             </div>
         </aside>
-    <table>
-        <tr>
-            <th>Athlete</th>
-            <th>Practice Date</th>
-            <th>Event</th>
-            <th>Approach</th>
-            <th>Gear</th>
-            <th>Mark Meters</th>
-            <th>Mark Raw</th>
-            <th>Season</th>
-        </tr>
-        {% for result in practice_results %}
-        <tr>
-            <td>{{ result.athlete.last_name }}</td>
-            <td>{{ result.practice_date }}</td>
-            <td>{{ result.event }}</td>
-            <td>{{ result.approach }}</td>
-            <td>{{ result.gear }}</td>
-            <td>{{ result.mark_meters }}</td>
-            <td>{{ result.mark_raw }}</td>
-            <td>{{ result.season }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+
+    <main class="main-content">
+        <h2>Practice</h2>
+        <table>
+            <tr>
+                <th>Athlete</th>
+                <th>Practice Date</th>
+                <th>Event</th>
+                <th>Approach</th>
+                <th>Gear</th>
+                <th>Mark Meters</th>
+                <th>Mark Raw</th>
+                <th>Season</th>
+            </tr>
+            {% for result in practice_results %}
+            <tr>
+                <td>{{ result.athlete.last_name }}</td>
+                <td>{{ result.practice_date }}</td>
+                <td>{{ result.event }}</td>
+                <td>{{ result.approach }}</td>
+                <td>{{ result.gear }}</td>
+                <td>{{ result.mark_meters }}</td>
+                <td>{{ result.mark_raw }}</td>
+                <td>{{ result.season }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </main>
 </body>
 </html>
