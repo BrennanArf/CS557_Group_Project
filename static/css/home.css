@@ -1,0 +1,135 @@
+:root {
+    --uwm-gold: #FFC000;
+    --uwm-black: #000000;
+    --bg-grey: #f4f4f4;
+    --text-dark: #333;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-grey);
+}
+
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 260px;
+    background-color: var(--uwm-black);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100%;
+}
+
+.sidebar-header {
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid #333;
+}
+
+.nav-logo {
+    width: 80px;
+    margin-bottom: 10px;
+}
+
+.nav-menu {
+    flex: 1;
+    padding: 20px 0;
+}
+
+.nav-item {
+    display: block;
+    padding: 15px 25px;
+    color: #d9d9d9;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.nav-item:hover {
+    background-color: #222;
+    color: var(--uwm-gold);
+}
+
+.nav-item.active {
+    border-left: 4px solid var(--uwm-gold);
+    background-color: #111;
+    color: white;
+}
+
+.admin-link {
+    color: var(--uwm-gold);
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.main-content {
+    margin-left: 260px;
+    flex: 1;
+    padding: 40px;
+}
+
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.user-badge {
+    background: var(--uwm-gold);
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    color: black;
+}
+
+.welcome-card {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+}
+
+.role-alert {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 4px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.stat-card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    border-top: 4px solid var(--uwm-gold);
+}
+
+
+.sidebar-footer {
+    padding: 20px;
+    border-top: 1px solid #333;
+}
+
+.logout-btn {
+    width: 100%;
+    padding: 10px;
+    background: transparent;
+    border: 1px solid #ff4444;
+    color: #ff4444;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: 0.3s;
+}
+
+.logout-btn:hover {
+    background: #ff4444;
+    color: white;
+}
