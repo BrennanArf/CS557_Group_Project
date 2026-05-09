@@ -34,7 +34,18 @@ class AthleteView(LoginRequiredMixin,View):
             return self.delete(request)
         else:
             # POST, create
-            return
+            name = request.POST.get('name', '').split(' ')
+            first_name, last_name = name[0], name[1]
+            gender = request.POST.get('gender', '')
+            event_group = request.POST.get('event_group', '')
+            athlete = Athlete.objects.create(
+            first_name=first_name, 
+            last_name=last_name, 
+            gender=gender,
+            event_group=event_group if event_group else None)
+            athlete.save()
+
+            return redirect('/home/athletes')
         
     
     def put(self, request):
