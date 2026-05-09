@@ -26,6 +26,18 @@ class AthleteView(LoginRequiredMixin,View):
         return render(request, 'athletes.html', context)
     
     def post(self, request):
+        method = request.POST.get('_method', '')
+        print(method)
+        if method == 'put':
+            return self.put(request)
+        elif method == 'delete':
+            return self.delete(request)
+        else:
+            # POST, create
+            return
+        
+    
+    def put(self, request):
         athlete = Athlete.objects.get(athlete_id=request.POST.get('athlete_id', ''))
 
         first_name, last_name = request.POST.get('name', '').split(' ')
@@ -35,12 +47,13 @@ class AthleteView(LoginRequiredMixin,View):
         athlete.event_group = request.POST.get('event_group', '')
         athlete.save()
 
-        # Only get here through Coach view
-        athletes = Athlete.objects.all()
-        context = {'athletes': athletes}
-
-        # This doesn't clean up URL... but functions appropriately
-        return render(request, 'athletes.html', context)
+        return redirect('/home/athletes')
+    
+    def delete(self, request):
+        athlete = Athlete.objects.get(athlete_id=request.POST.get('athlete_id', ''))
+        athlete.delete()
+        
+        return redirect('/home/athletes')
 
 class CompetitionResultsView(LoginRequiredMixin, View):
     def get(self, request):

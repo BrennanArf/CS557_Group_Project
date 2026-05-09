@@ -58,6 +58,7 @@
                         <td><input type="text", name="event_group", value="{{ athlete.event_group }}" /></td>
                         {% if request.user.role == "Coach" %}
                         <td>
+                            <input type="hidden" name="_method" value="put" />
                             <button type="submit" class="save-btn">Save</button>
                         </td>
                         {% endif %}
@@ -71,6 +72,14 @@
                     {% if request.user.role == "Coach" %}
                     <td>
                         <a href="?edit={{ athlete.athlete_id }}">Edit</button>
+                    </td>
+                    <td>
+                        <form method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="athlete_id" value="{{ athlete.athlete_id }}" />
+                            <input type="hidden" name="_method" value="delete" />
+                            <button type="submit">Delete</button>
+                        </form>
                     </td>
                     {% endif %}
                 {% endif %}
