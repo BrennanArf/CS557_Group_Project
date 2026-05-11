@@ -35,6 +35,15 @@
         </aside>
     <main class="main-content">
         <h2>Competition Results</h2>
+        {% if request.user.role != "Student" %}
+            <form method="GET" style="margin-bottom: 20px;">
+            <input type="text" name="search" placeholder="Search athlete name..." value="{{ search_query }}">
+            <button type="submit">Filter</button>
+            {% if search_query %}
+                 <a href="{% url 'comp_results' %}">Clear</a>
+            {% endif %}
+            </form>
+        {% endif %}
         <table class="data-table">
             <tr>
                 <th>Athlete</th>

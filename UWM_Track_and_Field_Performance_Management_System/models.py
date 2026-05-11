@@ -5,8 +5,8 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 class Athlete(models.Model):
     athlete_id = models.AutoField(primary_key=True)
-    first_name = models.CharField(max_length=45, null=True)
-    last_name = models.CharField(max_length=45)
+    first_name = models.CharField(max_length=45, null=True,db_index=True)
+    last_name = models.CharField(max_length=45,db_index=True)
     gender = models.CharField(max_length=10)
     event_group = models.CharField(max_length=45, null=True)
 

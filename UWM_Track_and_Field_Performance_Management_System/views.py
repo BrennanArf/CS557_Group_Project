@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, get_user_model, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.views import View
 
@@ -68,11 +69,21 @@ class AthleteView(LoginRequiredMixin,View):
 
 class CompetitionResultsView(LoginRequiredMixin, View):
     def get(self, request):
+        search_query = request.GET.get('search', '')
         if request.user.role == "Student":
             comp_results = CompetitionResult.objects.filter(athlete_id=request.user.athlete_id)
         else:
-            comp_results = CompetitionResult.objects.all()
-        context = {'comp_results': comp_results}
+            comp_results = CompetitionResult.objects.select_related('athlete').all()
+            if search_query:
+                comp_results = comp_results.filter(
+                    Q(athlete__last_name__icontains=search_query) |
+                    Q(athlete__first_name__icontains=search_query)
+                )
+
+        context = {
+            'comp_results': comp_results,
+            'search_query': search_query
+        }
         return render(request, 'competition_results.html', context)
 
 class FallTestingView(LoginRequiredMixin, View):
