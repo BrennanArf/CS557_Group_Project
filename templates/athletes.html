@@ -51,18 +51,30 @@
                 {% if athlete.athlete_id == editing_id %}
                     {# EDIT MODE #}
                     <form method="POST">
-                        {% csrf_token %}
-                        <td><input type="hidden" name="athlete_id" value="{{ athlete.athlete_id }}" /></td>
-                        <td><input type="text" name="name" value="{{ athlete.first_name }} {{ athlete.last_name }}" /></td>
-                        <td><input type="text" name="gender" value="{{ athlete.gender }}" /></td>
-                        <td><input type="text", name="event_group", value="{{ athlete.event_group }}" /></td>
-                        {% if request.user.role == "Coach" %}
-                        <td>
-                            <input type="hidden" name="_method" value="put" />
-                            <button type="submit" class="save-btn">Save</button>
-                        </td>
-                        {% endif %}
-                    </form>
+                       {% csrf_token %}
+                    <input type="hidden" name="athlete_id" value="{{ athlete.athlete_id }}" />
+                    <td>{{ athlete.athlete_id }}</td>
+                    <td><input type="text" name="name" value="{{ athlete.first_name }} {{ athlete.last_name }}" placeholder="First Name Last Name" required/></td>
+                    <td>
+                        <select name="gender">
+                            <option value="M" {% if athlete.gender == 'M' %}selected{% endif %}>M</option>
+                            <option value="W" {% if athlete.gender == 'W' %}selected{% endif %}>W</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="event_group">
+                            <option value="sprints" {% if athlete.event_group == 'sprints' %}selected{% endif %}>sprints</option>
+                            <option value="jumps" {% if athlete.event_group == 'jumps' %}selected{% endif %}>jumps</option>
+                            <option value="throws" {% if athlete.event_group == 'throws' %}selected{% endif %}>throws</option>
+                            <option value="multi" {% if athlete.event_group == 'multi' %}selected{% endif %}>multi</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="hidden" name="_method" value="put" />
+                        <button type="submit" class="save-btn">Save</button>
+                        <a href="{% url 'athletes' %}" class="cancel-btn">Cancel</a>
+                    </td>
+                </form>
                 {% else %}
                     {# DISPLAY MODE #}
                     <td>{{ athlete.athlete_id }}</td>
@@ -93,9 +105,24 @@
                 <form method="POST">
                     {% csrf_token %}
                     <td>+</td>
-                    <td><input type="text" name="name" value="" /></td>
-                    <td><input type="text" name="gender" value="" /></td>
-                    <td><input type="text", name="event_group", value="" /></td>
+                    <td><input type="text" name="name"  placeholder="First Name Last Name" required/></td>
+
+                    <td>
+                    <select name="gender" required>
+                        <option value="" disabled selected>Select Gender</option>
+                        <option value="M">M</option>
+                        <option value="W">W</option>
+                    </select>
+                </td>
+                <td>
+                    <select name="event_group" required>
+                        <option value="" disabled selected>Select Event</option>
+                        <option value="sprints">sprints</option>
+                        <option value="jumps">jumps</option>
+                        <option value="throws">throws</option>
+                        <option value="multi">multi</option>
+                    </select>
+                </td>
                     <td>
                         <button type="submit">Add</button>
                     </td>

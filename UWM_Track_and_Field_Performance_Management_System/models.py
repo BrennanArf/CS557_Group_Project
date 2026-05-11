@@ -9,8 +9,6 @@ class Athlete(models.Model):
     last_name = models.CharField(max_length=45)
     gender = models.CharField(max_length=10)
     event_group = models.CharField(max_length=45, null=True)
-    tfrrs_url = models.CharField(max_length=255, null=True, unique=True)
-    avg_practice_mark = models.DecimalField(max_digits=6, decimal_places=2)
 
     class Meta:
         unique_together = ('first_name', 'last_name', 'gender')
