@@ -36,7 +36,7 @@
  
     <main class="main-content">
         <h2>Athletes</h2>
-
+        <div class="card-view">
         <table>
             <tr>
                 <th>ID</th>
@@ -44,7 +44,8 @@
                 <th>Gender</th>
                 <th>Event Group</th>
                 {% if request.user.role == "Coach" %}
-                <th></th>
+                    <th>Actions</th>
+                    <th></th>
                 {% endif %}
             </tr>
             {% for athlete in athletes %}
@@ -131,6 +132,7 @@
             </tr>
             {% endif %}
         </table>
+        </div>
     </main>
 </body>
 </html>
