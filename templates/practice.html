@@ -55,21 +55,110 @@
                 <th>Mark Meters</th>
                 <th>Mark Raw</th>
                 <th>Season</th>
+                {% if request.user.role != "Student" %}
+                <th colspan="2">Actions</th>
+                {% endif %}
             </tr>
             {% for result in practice_results %}
-            <tr>
-                <td>{{ result.athlete.last_name }}</td>
-                <td>{{ result.practice_date }}</td>
-                <td>{{ result.event }}</td>
-                <td>{{ result.approach }}</td>
-                <td>{{ result.gear }}</td>
-                <td>{{ result.mark_meters }}</td>
-                <td>{{ result.mark_raw }}</td>
-                <td>{{ result.season }}</td>
+            <tr id="row-{{ result.practice_id }}">
+                {% if result.practice_id == editing_id %}
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="practice_id" value="{{ result.practice_id }}" />
+                        <td>{{ result.athlete.last_name }}</td>
+                        <td><input type="date" name="practice_date" value="{{ result.practice_date|date:'Y-m-d' }}" /></td>
+                        <td>
+                            <select name="event">
+                                <option value="TJ" {% if result.event == 'TJ' %}selected{% endif %}>TJ</option>
+                                <option value="LJ" {% if athlete.event == 'LJ' %}selected{% endif %}>LJ</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="approach">
+                                <option value="Short Approach" {% if result.event == 'Short Approach' %}selected{% endif %}>Short Approach</option>
+                                <option value="3/4-step" {% if athlete.event == '3/4-step' %}selected{% endif %}>3/4-step</option>
+                                <option value="6-step" {% if athlete.event == '6-step' %}selected{% endif %}>6-step</option>
+                                <option value="7-step" {% if athlete.event == '7-step' %}selected{% endif %}>7-step</option>
+                                <option value="8-step" {% if athlete.event == '8-step' %}selected{% endif %}>8-step</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="gear">
+                                <option value="flats" {% if result.event == 'flats' %}selected{% endif %}>flats</option>
+                                <option value="spikes" {% if athlete.event == 'spikes' %}selected{% endif %}>spikes</option>
+                            </select>
+                        </td>
+                        <td><input type="number" name="mark_meters" value="{{ result.mark_meters }}" /></td>
+                        <td><input type="number" name="mark_raw" value="{{ result.mark_raw }}" /></td>
+                        <td><input type="text" name="season" value="{{ result.season }}"/></td>
+                        <td>
+                            <input type="hidden" name="_method" value="put" />
+                            <button type="submit" class="save-btn">Save</button>
+                            <a href="{% url 'practice' %}" class="cancel-btn">Cancel</a>
+                        </td>
+                    </form>    
+                {% else %}
+                    <td>{{ result.athlete.last_name }}</td>
+                    <td>{{ result.practice_date|date:"Y-m-d" }}</td>
+                    <td>{{ result.event }}</td>
+                    <td>{{ result.approach }}</td>
+                    <td>{{ result.gear }}</td>
+                    <td>{{ result.mark_meters }}</td>
+                    <td>{{ result.mark_raw }}</td>
+                    <td>{{ result.season }}</td>
+                    {% if request.user.role != "Student" %}
+                    <td>
+                        <a href="?edit={{ result.practice_id }}">Edit</button>
+                    </td>
+                    <td>
+                        <form method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="practice_id" value="{{ result.practice_id }}" />
+                            <input type="hidden" name="_method" value="delete" />
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                    {% endif %}
+                {% endif %}
             </tr>
+            
             {% empty %}
             <tr><td colspan="8">No results found.</td></tr>
             {% endfor %}
+            {% if user.role != "Student" %}
+                <form method="POST">
+                    {% csrf_token %}
+                    <td><input type="text" name="name"  placeholder="First Name Last Name" required/></td>
+                    <td><input type="date" name="practice_date" /></td>
+                    <td>
+                        <select name="event">
+                            <option value="TJ">TJ</option>
+                            <option value="LJ">LJ</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="approach">
+                            <option value="Short Approach">Short Approach</option>
+                            <option value="3/4-step">3/4-step</option>
+                            <option value="6-step">6-step</option>
+                            <option value="7-step">7-step</option>
+                            <option value="8-step">8-step</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select name="gear">
+                            <option value="flats">flats</option>
+                            <option value="spikes">spikes</option>
+                        </select>
+                    </td>
+                    <td><input type="text" name="mark_meters" placeholder="mark meters"/></td>
+                    <td><input type="text" name="mark_raw" placeholder="mark raw" /></td>
+                    <td><input type="text" name="season" placeholder="season" /></td>
+                    <td>
+                        <button type="submit" class="add-btn">Add</button>
+                    </td>
+                </form>    
+            {% endif %}
         </table>
     </main>
 </body>

@@ -8,6 +8,8 @@ from django.views import View
 from UWM_Track_and_Field_Performance_Management_System.models import Athlete, CompetitionResult, FallTesting, \
     PracticeResult
 
+def to_float_if_not_null(element):
+    return float(element) if element != '' else None
 
 # Create your views here.
 class HomeView(LoginRequiredMixin,View):
@@ -120,6 +122,7 @@ class PracticeResultView(LoginRequiredMixin, View):
             practice_data = PracticeResult.objects.filter(athlete_id=request.user.athlete_id)
         else:
             practice_data = PracticeResult.objects.select_related('athlete').all()
+            editing_id = request.GET.get('edit')
             if search_query:
                 practice_data = practice_data.filter(
                     Q(athlete__last_name__icontains=search_query) |
@@ -128,9 +131,58 @@ class PracticeResultView(LoginRequiredMixin, View):
 
         context = {
             'practice_results': practice_data,
+            'editing_id':int(editing_id) if editing_id else None,
             'search_query': search_query
         }
         return render(request, 'practice.html', context)
+    
+    def post(self, request):
+        method = request.POST.get('_method', '')
+        if method == 'put':
+            return self.put(request)
+        elif method == 'delete':
+            return self.delete(request)
+        else:
+            name = request.POST.get('name', '').split(' ')
+            if len(name) > 1:
+                first_name, last_name = name[0], name[1]
+            else: return redirect('/home/practice')
+            athlete = Athlete.objects.get(first_name=first_name, last_name=last_name)
+
+            practice_result = PracticeResult.objects.create(
+                athlete = athlete,
+                practice_date = request.POST.get('practice_date', ''),
+                event = request.POST.get('event', ''),
+                approach = request.POST.get('approach', ''),
+                gear = request.POST.get('gear', ''),
+                mark_meters = to_float_if_not_null(request.POST.get('mark_meters', '')),
+                mark_raw = to_float_if_not_null(request.POST.get('mark_raw', '')),
+                season = request.POST.get('season', '')
+            )
+            practice_result.save()
+
+            return redirect('/home/practice')
+    
+    def put(self, request):
+        practice_result = PracticeResult.objects.get(practice_id=request.POST.get('practice_id'))
+
+        practice_result.practice_date = request.POST.get('practice_date', None)
+        practice_result.event = request.POST.get('event', None)
+        practice_result.approach = request.POST.get('approach', None)
+        practice_result.gear = request.POST.get('gear', None)
+        practice_result.mark_meters = request.POST.get('mark_meters', None)
+        practice_result.mark_raw = request.POST.get('mark_raw', None)
+        practice_result.season = request.POST.get('season', None)
+        practice_result.save()
+
+        return redirect('/home/practice')
+    
+    def delete(self, request):
+        practice_result = PracticeResult.objects.get(practice_id=request.POST.get('practice_id'))
+        practice_result.delete()
+        
+        return redirect('/home/practice')
+
 
 
 class LoginView(View):
