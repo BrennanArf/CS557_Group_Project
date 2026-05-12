@@ -21,6 +21,7 @@ class AthleteView(LoginRequiredMixin,View):
         search_query = request.GET.get('search', '')
         if request.user.role == "Student":
             athletes = Athlete.objects.filter(athlete_id=request.user.athlete_id)
+            editing_id = None
         else:
             athletes = Athlete.objects.all()
             editing_id = request.GET.get('edit')
@@ -120,6 +121,7 @@ class PracticeResultView(LoginRequiredMixin, View):
         search_query = request.GET.get('search', '')
         if request.user.role == "Student":
             practice_data = PracticeResult.objects.filter(athlete_id=request.user.athlete_id)
+            editing_id = None
         else:
             practice_data = PracticeResult.objects.select_related('athlete').all()
             editing_id = request.GET.get('edit')
