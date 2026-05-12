@@ -15,7 +15,6 @@ class Command(BaseCommand):
                     last_name=row[2],
                     gender=row[3],
                     event_group=row[4],
-                    tfrrs_url=row[5]
                 )
                 new_athlete.save()
         self.stdout.write(self.style.SUCCESS('Import complete'))

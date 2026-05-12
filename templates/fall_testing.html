@@ -36,6 +36,15 @@
         </aside>
     <main class="main-content">
         <h2>Fall Testing</h2>
+        {% if request.user.role != "Student" %}
+            <form method="GET" style="margin-bottom: 20px;">
+            <input type="text" name="search" placeholder="Search athlete name..." value="{{ search_query }}">
+            <button type="submit">Filter</button>
+            {% if search_query %}
+                 <a href="{% url 'fall_testing' %}">Clear</a>
+            {% endif %}
+            </form>
+        {% endif %}
         <table>
             <tr>
                 <th>Athlete</th>
@@ -50,6 +59,8 @@
                 <td>{{ test.vertical }}</td>
                 <td>{{ test.sprint_50 }}</td>
             </tr>
+            {% empty %}
+            <tr><td colspan="4">No results found.</td></tr>
             {% endfor %}
         </table>
     </main>

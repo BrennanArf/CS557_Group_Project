@@ -36,6 +36,15 @@
 
     <main class="main-content">
         <h2>Practice</h2>
+        {% if request.user.role != "Student" %}
+            <form method="GET" style="margin-bottom: 20px;">
+            <input type="text" name="search" placeholder="Search athlete name..." value="{{ search_query }}">
+            <button type="submit">Filter</button>
+            {% if search_query %}
+                 <a href="{% url 'practice' %}">Clear</a>
+            {% endif %}
+            </form>
+        {% endif %}
         <table>
             <tr>
                 <th>Athlete</th>
@@ -58,6 +67,8 @@
                 <td>{{ result.mark_raw }}</td>
                 <td>{{ result.season }}</td>
             </tr>
+            {% empty %}
+            <tr><td colspan="8">No results found.</td></tr>
             {% endfor %}
         </table>
     </main>

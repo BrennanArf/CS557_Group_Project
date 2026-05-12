@@ -36,6 +36,15 @@
  
     <main class="main-content">
         <h2>Athletes</h2>
+        {% if request.user.role != "Student" %}
+            <form method="GET" style="margin-bottom: 20px;">
+            <input type="text" name="search" placeholder="Search athlete name..." value="{{ search_query }}">
+            <button type="submit">Filter</button>
+            {% if search_query %}
+                 <a href="{% url 'athletes' %}">Clear</a>
+            {% endif %}
+            </form>
+        {% endif %}
         <div class="card-view">
         <table>
             <tr>

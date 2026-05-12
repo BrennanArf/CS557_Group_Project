@@ -16,14 +16,22 @@ class HomeView(LoginRequiredMixin,View):
 
 class AthleteView(LoginRequiredMixin,View):
     def get(self, request):
+        search_query = request.GET.get('search', '')
         if request.user.role == "Student":
             athletes = Athlete.objects.filter(athlete_id=request.user.athlete_id)
-            context = {'athletes': athletes}
         else:
             athletes = Athlete.objects.all()
             editing_id = request.GET.get('edit')
-            context = {'athletes': athletes, 'editing_id':int(editing_id) if editing_id else None}
-    
+            if search_query:
+                athletes = athletes.filter(
+                    Q(last_name__icontains=search_query) |
+                    Q(first_name__icontains=search_query)
+                )
+            
+        context = {
+            'athletes': athletes, 
+            'editing_id':int(editing_id) if editing_id else None,
+            'search_query': search_query}
         return render(request, 'athletes.html', context)
     
     def post(self, request):
@@ -88,20 +96,40 @@ class CompetitionResultsView(LoginRequiredMixin, View):
 
 class FallTestingView(LoginRequiredMixin, View):
     def get(self, request):
+        search_query = request.GET.get('search', '')
         if request.user.role == "Student":
             fall_testing = FallTesting.objects.filter(athlete_id=request.user.athlete_id)
         else:
-            fall_testing = FallTesting.objects.all()   
-        context = {'fall_testing': fall_testing}
+            fall_testing = FallTesting.objects.select_related('athlete').all()
+            if search_query:
+                fall_testing = fall_testing.filter(
+                    Q(athlete__last_name__icontains=search_query) |
+                    Q(athlete__first_name__icontains=search_query)
+            )
+
+        context = {
+            'fall_testing': fall_testing,
+            'search_query': search_query 
+        }
         return render(request, 'fall_testing.html', context)
 
 class PracticeResultView(LoginRequiredMixin, View):
     def get(self, request):
+        search_query = request.GET.get('search', '')
         if request.user.role == "Student":
-            practice_results = PracticeResult.objects.filter(athlete_id=request.user.athlete_id)
+            practice_data = PracticeResult.objects.filter(athlete_id=request.user.athlete_id)
         else:
-            practice_results = PracticeResult.objects.all()
-        context = {'practice_results': practice_results}
+            practice_data = PracticeResult.objects.select_related('athlete').all()
+            if search_query:
+                practice_data = practice_data.filter(
+                    Q(athlete__last_name__icontains=search_query) |
+                    Q(athlete__first_name__icontains=search_query)
+                )
+
+        context = {
+            'practice_results': practice_data,
+            'search_query': search_query
+        }
         return render(request, 'practice.html', context)
 
 
