@@ -43,7 +43,7 @@
                 <th>Name</th>
                 <th>Gender</th>
                 <th>Event Group</th>
-                {% if request.user.role == "Coach" %}
+                {% if request.user.role != "Student" %}
                 <th></th>
                 {% endif %}
             </tr>
@@ -82,7 +82,7 @@
                     <td>{{ athlete.first_name }} {{ athlete.last_name }}</td>
                     <td>{{ athlete.gender }}</td>
                     <td>{{ athlete.event_group }}</td>
-                    {% if request.user.role == "Coach" %}
+                    {% if request.user.role != "Student" %}
                     <td>
                         <a href="?edit={{ athlete.athlete_id }}">Edit</button>
                     </td>
@@ -101,7 +101,7 @@
             <tr><td colspan="4">No athletes found.</td></tr>
             {% endfor %}
 
-            {% if request.user.role == "Coach" %}
+            {% if request.user.role != "Student" %}
             <tr>
                 <form method="POST">
                     {% csrf_token %}
