@@ -46,10 +46,22 @@
 
             <section class="welcome-card">
                 <h2>Thank you for visiting the UWM Track and Field Performance System</h2>
+                    <p>
+                        Our mission is to empower the UWM Track and Field program through a centralized
+                        database, allowing students and coaches access to both performance insights and athlete information.
+                    </p>
+                {% if request.user.role != "Student" %}
+                    <p>As an admin or coach you have access to creating, viewing, updating, and deleting
+                        student data. </p>
+                {% endif %}
+                {% if request.user.role == "Student" %}
+                    <p>As a student you have access to your records!</p>
+                {% endif %}
                 <p>You can find everything you are looking for on the side panel on the left</p>
-
             </section>
 
+            <img src="{% static 'images/trackandfield.jfif' %}" alt="Track and Field Image" style="width: 1000px; height: auto;
+                display: block; margin: 20px auto;">
 
         </main>
     </div>
