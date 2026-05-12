@@ -1,5 +1,4 @@
-ALTER TABLE uwm_track_and_field_performance_management_system_athlete ADD COLUMN avg_practice_mark DECIMAL(6,2) DEFAULT 0.00, 
-ADD CONSTRAINT unique_tfrrs UNIQUE (tfrrs_url), 
+ALTER TABLE uwm_track_and_field_performance_management_system_athlete ADD COLUMN avg_practice_mark DECIMAL(6,2) NULL DEFAULT NULL, 
 ADD CONSTRAINT unique_athlete_name UNIQUE (first_name, last_name, gender); 
 
 DELIMITER // 
@@ -14,6 +13,13 @@ END //
 
 CREATE TRIGGER after_practice_insert 
 AFTER INSERT ON uwm_track_and_field_performance_management_system_practiceresult 
+FOR EACH ROW 
+BEGIN 
+	CALL UpdateAthletePracticeAvg(NEW.athlete_id); 
+END //
+
+CREATE TRIGGER after_practice_update 
+AFTER UPDATE ON uwm_track_and_field_performance_management_system_practiceresult 
 FOR EACH ROW 
 BEGIN 
 	CALL UpdateAthletePracticeAvg(NEW.athlete_id); 

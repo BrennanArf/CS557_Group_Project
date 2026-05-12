@@ -9,6 +9,7 @@ class Athlete(models.Model):
     last_name = models.CharField(max_length=45,db_index=True)
     gender = models.CharField(max_length=10)
     event_group = models.CharField(max_length=45, null=True)
+    avg_practice_mark = models.DecimalField(max_digits=6, decimal_places=2, null=True)
 
     class Meta:
         unique_together = ('first_name', 'last_name', 'gender')
@@ -45,7 +46,7 @@ class PracticeResult(models.Model):
     approach = models.CharField(max_length=45, null=True)
     gear = models.CharField(max_length=45, null=True)
     mark_meters = models.DecimalField(max_digits=6, decimal_places=2, null=True)
-    mark_raw = models.DecimalField(max_digits=6, decimal_places=2, null=True)
+    mark_raw = models.CharField(max_length=10, null=True)
     season = models.CharField(max_length=10, null=True)
 
 class CustomUser(AbstractUser):

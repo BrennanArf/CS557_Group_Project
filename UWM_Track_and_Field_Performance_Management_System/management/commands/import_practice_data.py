@@ -23,7 +23,7 @@ class Command(BaseCommand):
                     approach=if_not_null(row[3]),
                     gear=if_not_null(row[4]),
                     mark_meters=to_float_if_not_null(row[5]),
-                    mark_raw=to_float_if_not_null(row[6].strip('"').replace("'", ".")),
+                    mark_raw=if_not_null(row[6].strip('"') + '"'),
                     season=if_not_null(row[7])
                 )
                 new_test.save()
