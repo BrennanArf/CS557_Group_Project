@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'CS557_Group_Project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'UWM_Track_Field_db_1',
+        'NAME': 'UWM_Track_Field_db',
         'USER': 'root',
         'PASSWORD': 'admin',
         'HOST': 'localhost',

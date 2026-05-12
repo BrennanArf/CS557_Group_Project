@@ -158,7 +158,7 @@ class PracticeResultView(LoginRequiredMixin, View):
                 approach = request.POST.get('approach', ''),
                 gear = request.POST.get('gear', ''),
                 mark_meters = to_float_if_not_null(request.POST.get('mark_meters', '')),
-                mark_raw = to_float_if_not_null(request.POST.get('mark_raw', '')),
+                mark_raw = request.POST.get('mark_raw', ''),
                 season = request.POST.get('season', '')
             )
             practice_result.save()
