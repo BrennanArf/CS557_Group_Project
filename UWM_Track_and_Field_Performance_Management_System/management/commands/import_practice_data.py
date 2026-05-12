@@ -16,15 +16,18 @@ class Command(BaseCommand):
             reader = csv.reader(f, delimiter=',')
             reader.__next__() # skip title row
             for row in reader:
-                new_test = PracticeResult(
-                    athlete=Athlete.objects.get(pk=row[0]),
-                    practice_date=if_not_null(row[1]),
-                    event=if_not_null(row[2]),
-                    approach=if_not_null(row[3]),
-                    gear=if_not_null(row[4]),
-                    mark_meters=to_float_if_not_null(row[5]),
-                    mark_raw=if_not_null(row[6].strip('"') + '"'),
-                    season=if_not_null(row[7])
-                )
-                new_test.save()
+                try:
+                    new_test = PracticeResult(
+                        athlete=Athlete.objects.get(pk=row[0]),
+                        practice_date=if_not_null(row[1]),
+                        event=if_not_null(row[2]),
+                        approach=if_not_null(row[3]),
+                        gear=if_not_null(row[4]),
+                        mark_meters=to_float_if_not_null(row[5]),
+                        mark_raw=if_not_null(row[6].strip('"') + '"'),
+                        season=if_not_null(row[7])
+                    )
+                    new_test.save()
+                except:
+                    continue
         self.stdout.write(self.style.SUCCESS('Import complete'))

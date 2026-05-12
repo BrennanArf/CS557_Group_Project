@@ -18,6 +18,7 @@ class HomeView(LoginRequiredMixin,View):
 
 class AthleteView(LoginRequiredMixin,View):
     def get(self, request):
+        editing_id = -1
         search_query = request.GET.get('search', '')
         if request.user.role == "Student":
             athletes = Athlete.objects.filter(athlete_id=request.user.athlete_id)
@@ -32,7 +33,7 @@ class AthleteView(LoginRequiredMixin,View):
             
         context = {
             'athletes': athletes, 
-            'editing_id':int(editing_id) if editing_id else None,
+            'editing_id':int(editing_id),
             'search_query': search_query}
         return render(request, 'athletes.html', context)
     
@@ -118,6 +119,7 @@ class FallTestingView(LoginRequiredMixin, View):
 class PracticeResultView(LoginRequiredMixin, View):
     def get(self, request):
         search_query = request.GET.get('search', '')
+        editing_id = -1
         if request.user.role == "Student":
             practice_data = PracticeResult.objects.filter(athlete_id=request.user.athlete_id)
         else:
@@ -131,7 +133,7 @@ class PracticeResultView(LoginRequiredMixin, View):
 
         context = {
             'practice_results': practice_data,
-            'editing_id':int(editing_id) if editing_id else None,
+            'editing_id':int(editing_id),
             'search_query': search_query
         }
         return render(request, 'practice.html', context)
@@ -156,7 +158,7 @@ class PracticeResultView(LoginRequiredMixin, View):
                 approach = request.POST.get('approach', ''),
                 gear = request.POST.get('gear', ''),
                 mark_meters = to_float_if_not_null(request.POST.get('mark_meters', '')),
-                mark_raw = to_float_if_not_null(request.POST.get('mark_raw', '')),
+                mark_raw = request.POST.get('mark_raw', ''),
                 season = request.POST.get('season', '')
             )
             practice_result.save()

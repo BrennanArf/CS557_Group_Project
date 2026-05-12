@@ -10,12 +10,15 @@ class Command(BaseCommand):
             reader = csv.reader(f, delimiter=',')
             reader.__next__() # skip title row
             for row in reader:
-                new_athlete = Athlete(
-                    first_name=row[1],
-                    last_name=row[2],
-                    gender=row[3],
-                    event_group=row[4],
-                )
-                new_athlete.save()
+                try:
+                    new_athlete = Athlete(
+                        first_name=row[1],
+                        last_name=row[2],
+                        gender=row[3],
+                        event_group=row[4],
+                    )
+                    new_athlete.save()
+                except:
+                    continue               
         self.stdout.write(self.style.SUCCESS('Import complete'))
         

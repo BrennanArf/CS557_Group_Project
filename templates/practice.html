@@ -88,8 +88,8 @@
                                 <option value="spikes" {% if athlete.event == 'spikes' %}selected{% endif %}>spikes</option>
                             </select>
                         </td>
-                        <td><input type="number" name="mark_meters" value="{{ result.mark_meters }}" /></td>
-                        <td><input type="number" name="mark_raw" value="{{ result.mark_raw }}" /></td>
+                        <td><input type="text" name="mark_meters" value="{{ result.mark_meters }}" /></td>
+                        <td><input type="text" name="mark_raw" value="{{ result.mark_raw }}" /></td>
                         <td><input type="text" name="season" value="{{ result.season }}"/></td>
                         <td>
                             <input type="hidden" name="_method" value="put" />
