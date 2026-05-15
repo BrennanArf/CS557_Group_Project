@@ -113,7 +113,7 @@ SELECT
 FROM practice_results pr;
 
 ------------------------------------------------------------
--- 8. OPTIONAL: Athlete performance summary (aggregated)
+-- 8. Athlete performance summary
 ------------------------------------------------------------
 CREATE OR REPLACE VIEW athlete_performance_summary AS
 SELECT
