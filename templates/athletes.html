@@ -52,6 +52,7 @@
                 <th>Name</th>
                 <th>Gender</th>
                 <th>Event Group</th>
+                <th>Average Practice mark</th>
                 {% if request.user.role != "Student" %}
                     <th>Actions</th>
                     <th></th>
@@ -92,6 +93,7 @@
                     <td>{{ athlete.first_name }} {{ athlete.last_name }}</td>
                     <td>{{ athlete.gender }}</td>
                     <td>{{ athlete.event_group }}</td>
+                    <td>{{ athlete.avg_practice_mark }}</td>
                     {% if request.user.role != "Student" %}
                     <td>
                         <a href="?edit={{ athlete.athlete_id }}">Edit</button>
